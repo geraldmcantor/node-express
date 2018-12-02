@@ -1,60 +1,60 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const dishRouter = express.Router();
+const promoRouter = express.Router();
 
-dishRouter.use(bodyParser.json());
+promoRouter.use(bodyParser.json());
 
-// Handle requests for /dishes
-dishRouter.route('/')
+// Handle requests for /promotions
+promoRouter.route('/')
 .all((req,res,next) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
     next();
 })
 .get((req,res,next) => {
-    res.end('Will send all the dishes to you!');
+    res.end('Will send all the promotions to you!');
 })
 .post((req, res, next) => {
     res.end(
-        'Will add the dish: ' +
+        'Will add the promotion: ' +
         req.body.name +
         ' with details: ' +
         req.body.description);
 })
 .put((req, res, next) => {
     res.statusCode = 403;
-    res.end('PUT operation not supported on /dishes');
+    res.end('PUT operation not supported on /promotions');
 })
 .delete((req, res, next) => {
-    res.end('Deleting all dishes');
+    res.end('Deleting all promotions');
 });
 
-// Setup the routing for handling /dishes/:dishId requests
-dishRouter.route('/:dishId')
+// Setup the routing for handling /promotions/:promoId requests
+promoRouter.route('/:promoId')
 .all((req,res,next) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
     next();
 })
 .get((req,res,next) => {
-    res.end('Will send details of the dish: ' + req.params.dishId +' to you!');
+    res.end('Will send details of the promotions: ' + req.params.promoId +' to you!');
 })
 .post((req, res, next) => {
     res.end(
-        'Will add the dish: ' +
+        'Will add the promotion: ' +
         req.body.name +
         ' with details: ' +
         req.body.description +
-        ' to dish with id ' +
-        req.params.dishId);
+        ' to promotion with id ' +
+        req.params.promoId);
 })
 .put((req, res, next) => {
     res.statusCode = 403;
-    res.end('PUT operation not supported on /dishes/' + req.params.dishId);
+    res.end('PUT operation not supported on /promotions/' + req.params.promoId);
 })
 .delete((req, res, next) => {
-    res.end('Deleting dish with id ' + req.params.dishId);
+    res.end('Deleting promotion with id ' + req.params.promoId);
 });
 
-module.exports = dishRouter;
+module.exports = promoRouter;
