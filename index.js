@@ -3,15 +3,17 @@ http = require('http');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
+const dishRouter = require('./routes/dishRouter');
+
 const hostname = 'localhost';
 const port = 3000;
 
 const app = express();
 
 app.use(morgan('dev'));
-app.use(express.static(__dirname + '/public'));
-
 app.use(bodyParser.json());
+app.use(express.static(__dirname + '/public'));
+app.use('/dishes', dishRouter);
 
 /*
 app.use((req, res, next) => {
@@ -21,7 +23,6 @@ app.use((req, res, next) => {
   res.end('<html><body><h1>This is an Express Server</h1></body></html>');
 
 });
-*/
 
 app.all('/dishes', (req,res,next) => {
     res.statusCode = 200;
@@ -64,6 +65,7 @@ app.put('/dishes/:dishId', (req, res, next) => {
 app.delete('/dishes/:dishId', (req, res, next) => {
     res.end('Deleting dish: ' + req.params.dishId);
 });
+*/
 
 const server = http.createServer(app);
 
